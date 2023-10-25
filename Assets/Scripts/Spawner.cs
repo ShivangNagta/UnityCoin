@@ -7,7 +7,7 @@ public class Spawner : MonoBehaviour
     public GameObject Enemy;
     Vector2 halfCamera;
     float nextSpawnTime;
-    float spawnInterval = 0.5f;
+    public Vector2 spawnInterval;
     public Vector2 spawnSizeInterval;
     public float maxAngle;
 
@@ -22,9 +22,10 @@ public class Spawner : MonoBehaviour
     {
         if (Time.time > nextSpawnTime)
         {
+            float secondsBetweenSpawn =Mathf.Lerp(spawnInterval.y,spawnInterval.x,Difficulty.GetDifficultyPercent());
             float newAngle = Random.Range(-maxAngle, maxAngle);
             float spawnSize = Random.Range(spawnSizeInterval.x, spawnSizeInterval.y);
-            nextSpawnTime = Time.time+spawnInterval;
+            nextSpawnTime = Time.time+secondsBetweenSpawn;
             Vector2 spawnPosition = new Vector2 ((Random.Range(-halfCamera.x, halfCamera.x)), halfCamera.y+spawnSize/2f);
             GameObject newEnemy = (GameObject)Instantiate (Enemy, spawnPosition, Quaternion.Euler(Vector3.forward*newAngle));
             newEnemy.transform.localScale = Vector3.one * spawnSize;

@@ -29,8 +29,16 @@ public class Player : MonoBehaviour
         {
             transform.position = new Vector2(-screenHalfWidth, transform.position.y);
         }
-
     }
+
+    void OnTriggerEnter2D(Collider2D triggerCollider)
+    {
+        if (triggerCollider.tag == "Enemy")
+        {
+            Destroy(gameObject);
+        }
+    }
+
     void FixedUpdate()
     {
         transform.Translate(Vector2.right * vel * Time.deltaTime);

@@ -4,11 +4,24 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public float enemyFallingSpeed = 10f;
+    public Vector2 enemyFallingSpeed;
+    float speed;
+    float visibleHeightThreshold;
+
+    private void Start()
+    {
+        speed = Mathf.Lerp(enemyFallingSpeed.y, enemyFallingSpeed.x, Difficulty.GetDifficultyPercent());
+        visibleHeightThreshold=-Camera.main.orthographicSize-transform.localScale.y;
+    }
+
 
     // Update is called once per frame
     void Update()
     {
         transform.Translate(Vector2.down * enemyFallingSpeed * Time.deltaTime);
+        if (transform.position.y < visibleHeightThreshold)
+        {
+            Destroy(gameObject);    
+        }
     }
 }
