@@ -35,6 +35,7 @@ public class Player : MonoBehaviour
     {
         if (triggerCollider.tag == "Enemy")
         {
+            FindAnyObjectByType<GameOver>().OnGameOver();
             Destroy(gameObject);
         }
     }
